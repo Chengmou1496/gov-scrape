@@ -13,19 +13,17 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+
 
 #load webpage
-options = webdriver.ChromeOptions() 
-options.add_argument("start-maximized")
-# to supress the error messages/logs
-options.add_experimental_option('excludeSwitches', ['enable-logging'])
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 url='https://zfwzzc.www.gov.cn/check_web/databaseInfo/download#page-1'
-browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-browser.get(url)
+driver.get(url)
 
 #click one department (five deps at a time)
 xpath_dep = '/html/body/div[4]/div[2]/ul/li[1]/div' #change li[1] 
-browser.find_element(by=By.XPATH, value=xpath_dep).click() #click to select dep
+driver.find_element(by=By.XPATH, value=xpath_dep).click() #click to select dep
 #error code:handshake failed; returned -1, SSL error code 1, net_error -101
 
 
